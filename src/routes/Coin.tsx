@@ -46,6 +46,7 @@ const OverviewItem = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 33%;
   span:first-child {
     font-size: 10px;
     font-weight: 400;
@@ -70,12 +71,12 @@ const Tab = styled.span<{ isActive: boolean }>`
   font-size: 12px;
   font-weight: 400;
   background-color: rgba(0, 0, 0, 0.5);
-  padding: 7px 0px;
   border-radius: 10px;
   color: ${(props) =>
     props.isActive ? props.theme.accentColor : props.theme.textColor};
   a {
     display: block;
+    padding: 7px 0px;
   }
 `;
 
@@ -145,9 +146,9 @@ interface PriceData {
 }
 
 function Coin() {
-  const [loading, setLoading] = useState(true);
   const { coinId } = useParams<keyof RouteParams>();
   const { state } = useLocation() as RouteState;
+  const [loading, setLoading] = useState(true);
   const [info, setInfo] = useState<InfoData>();
   const [priceInfo, setPriceInfo] = useState<PriceData>();
   const priceMatch = useMatch("/:coinId/price");
