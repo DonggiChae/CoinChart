@@ -1,4 +1,3 @@
-import {  useEffect,useState } from "react";
 import { useQuery } from "react-query";
 import {
   Routes,
@@ -43,7 +42,6 @@ const Overview = styled.div`
   padding: 10px 20px;
   border-radius: 10px;
 `;
-
 const OverviewItem = styled.div`
   display: flex;
   flex-direction: column;
@@ -77,21 +75,17 @@ const Tab = styled.span<{ isActive: boolean }>`
   color: ${(props) =>
     props.isActive ? props.theme.accentColor : props.theme.textColor};
   a {
-    display: block;
     padding: 7px 0px;
+    display: block;
   }
 `;
 
 interface RouteParams {
   coinId: string;
 }
-
 interface RouteState {
-  state:{
-    name:string;
-    };
+  name: string;
 }
-
 interface InfoData {
   id: string;
   name: string;
@@ -112,7 +106,6 @@ interface InfoData {
   first_data_at: string;
   last_data_at: string;
 }
-
 interface PriceData {
   id: string;
   name: string;
@@ -149,16 +142,16 @@ interface PriceData {
 
 function Coin() {
   const { coinId } = useParams<keyof RouteParams>();
-  const { state } = useLocation() as RouteState;
+  const state = useLocation().state as RouteState;
   const priceMatch = useMatch("/:coinId/price");
   const chartMatch = useMatch("/:coinId/chart");
   const { isLoading: infoLoading, data: infoData } = useQuery<InfoData>(
     ["info", coinId],
-    () => fetchCoinInfo(coinId)
+    () => fetchCoinInfo(coinId!)
   );
   const { isLoading: tickersLoading, data: tickersData } = useQuery<PriceData>(
     ["tickers", coinId],
-    () => fetchCoinTickers(coinId)
+    () => fetchCoinTickers(coinId!)
   );
   const loading = infoLoading || tickersLoading;
   return (
@@ -208,13 +201,12 @@ function Coin() {
           </Tabs>
 
           <Routes>
-            <Route path="/:coinId/chart" element={<Chart />} />
-            <Route path="/:coinId/price" element={<Price />} />
+            <Route path="price" element={<Price />} />
+            <Route path="chart" element={<Chart coinId={coinId as string}/>} />
           </Routes>
         </>
       )}
     </Container>
   );
 }
-
 export default Coin;

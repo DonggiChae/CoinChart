@@ -1,7 +1,6 @@
-import { useEffect, useState } from "react";
 import { useQuery } from "react-query";
-import styled from "styled-components";
 import { Link } from "react-router-dom";
+import styled from "styled-components";
 import { fetchCoins } from "../api";
 
 const Container = styled.div`
@@ -77,9 +76,8 @@ function Coins() {
           {data?.slice(0, 100).map((coin) => (
             <Coin key={coin.id}>
               <Link to={`/${coin.id}`} state= {{ name: coin.name }}>
-                <Img
-                  src={`https://cryptocurrencyliveprices.com/img/${coin.id}.png`}
-                />
+              
+                <Img src={`https://cryptocurrencyliveprices.com/img/${coin.id}.png`} />
                 {coin.name} &rarr;
               </Link>
             </Coin>
@@ -89,6 +87,4 @@ function Coins() {
     </Container>
   );
 }
-
-
 export default Coins;
