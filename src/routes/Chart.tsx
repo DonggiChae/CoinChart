@@ -31,11 +31,14 @@ function Chart({ coinId }: ChartProps) {
         "Loading chart..."
       ) : (
         <ApexChart
-          type="line"
+          type="candlestick"
           series={[
             {
               name: "Price",
-              data: data?.map((price) => price.close) as number[],
+              data: data?.map((price) => ({
+                x: price.time_open,
+                y: [price.open.toFixed(2), price.high.toFixed(2), price.low.toFixed(2), price.close.toFixed(2)],
+              })) as unknown as number[],
             },
           ]}
           options={{
