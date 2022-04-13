@@ -68,9 +68,13 @@ function Chart({ coinId }: ChartProps) {
               type: "datetime",
               categories: data?.map((price) => price.time_close),
             },
-            fill: {
-              type: "gradient",
-              gradient: { gradientToColors: ["#0be881"], stops: [0, 100] },
+            plotOptions: {
+              candlestick: {
+                colors: {
+                  upward: '#3C90EB',
+                  downward: '#DF7D46'
+                }
+              }
             },
             colors: ["#0fbcf9"],
             tooltip: {
