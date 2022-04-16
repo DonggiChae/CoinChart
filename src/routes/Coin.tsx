@@ -7,11 +7,22 @@ import {
   useParams,
   useMatch,
 } from "react-router-dom";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { fas } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import {
+  IconLookup,
+  IconDefinition,
+  findIconDefinition,
+  library,
+} from '@fortawesome/fontawesome-svg-core'
 import styled from "styled-components";
+
 import { fetchCoinInfo, fetchCoinTickers } from "../api";
 import Chart from "./Chart";
 import Price from "./Price";
+
+library.add(fas);
 
 const Title = styled.h1`
   font-size: 48px;
@@ -32,9 +43,28 @@ const Container = styled.div`
 const Header = styled.header`
   height: 15vh;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 `;
+
+const GoTohome = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  span {
+    font-size: 20px;
+    font-weight: 400;
+    text-transform: uppercase;
+    margin-right: 38vh;
+  }
+  &:hover {
+    span {
+      color: ${(props) => props.theme.accentColor};
+      cursor: pointer;
+    }
+`;
+
 
 const Overview = styled.div`
   display: flex;
@@ -146,6 +176,13 @@ function Coin() {
   const state = useLocation().state as RouteState;
   const priceMatch = useMatch("/:coinId/price");
   const chartMatch = useMatch("/:coinId/chart");
+  const navigate = useNavigate();
+  const arrowLeftLookup: IconLookup = { prefix: 'fas', iconName: 'arrow-left' }
+  const arrowLeftIconDefinition: IconDefinition = findIconDefinition(arrowLeftLookup)
+  const onClickToHome = () => {
+    navigate("/");
+  };
+
   const { isLoading: infoLoading, data: infoData } = useQuery<InfoData>(
     ["info", coinId],
     () => fetchCoinInfo(coinId!)
@@ -166,6 +203,11 @@ function Coin() {
         </title>
       </Helmet>
       <Header>
+        <GoTohome onClick={onClickToHome}>
+          <span>
+            <FontAwesomeIcon icon={arrowLeftIconDefinition} />
+          </span>
+        </GoTohome>
         <Title>
           {state?.name ? state.name : loading ? "Loading..." : infoData?.name}
         </Title>

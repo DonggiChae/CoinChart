@@ -5,8 +5,7 @@ import styled from "styled-components";
 const Overview = styled.div`
   display: flex;
   justify-content: space-around;
-  background-color: whitesmoke;
-  color: black;
+  background-color: rgba(0, 0, 0, 0.5);
   padding: 10px;
   border-radius: 10px;
   margin-bottom: 20px;
