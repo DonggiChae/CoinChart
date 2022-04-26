@@ -171,7 +171,9 @@ interface PriceData {
   };
 }
 
-function Coin() {
+interface ICoinProps {}
+
+function Coin({}: ICoinProps) {
   const { coinId } = useParams<keyof RouteParams>();
   const state = useLocation().state as RouteState;
   const priceMatch = useMatch("/:coinId/price");
@@ -219,7 +221,7 @@ function Coin() {
           <Overview>
             <OverviewItem>
               <span>Price:</span>
-              <span>${tickersData?.quotes.USD.price.toFixed(3)}</span>
+              <span>${tickersData?.quotes?.USD?.price?.toFixed(3)}</span>
             </OverviewItem>
             <OverviewItem>
               <span>Symbol:</span>

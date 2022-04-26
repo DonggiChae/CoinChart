@@ -4,7 +4,9 @@ import Coin from "./routes/Coin";
 import Coins from "./routes/Coins";
 import Price from "./routes/Price";
 
-function Router() {
+interface IRouterProps {}
+
+function Router({}: IRouterProps) {
   return (
     <BrowserRouter>
       <Routes>
