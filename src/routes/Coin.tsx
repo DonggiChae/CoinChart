@@ -182,7 +182,7 @@ function Coin({}: ICoinProps) {
   const arrowLeftLookup: IconLookup = { prefix: 'fas', iconName: 'arrow-left' }
   const arrowLeftIconDefinition: IconDefinition = findIconDefinition(arrowLeftLookup)
   const onClickToHome = () => {
-    navigate("/coins");
+    navigate("/");
   };
 
   const { isLoading: infoLoading, data: infoData } = useQuery<InfoData>(

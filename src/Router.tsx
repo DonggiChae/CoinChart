@@ -11,7 +11,7 @@ function Router({}: IRouterProps) {
     <BrowserRouter>
       <Routes>
         <Route path="/:coinId/*" element={<Coin />} />
-        <Route path="/coins" element={<Coins />} />
+        <Route path="/" element={<Coins />} />
       </Routes>
     </BrowserRouter>
   );
