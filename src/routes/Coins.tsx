@@ -14,9 +14,9 @@ const Container = styled.div`
 
 const Header = styled.header`
   height: 15vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-gap: 10px;
 `;
 
 const CoinsList = styled.ul``;
@@ -43,11 +43,29 @@ const Coin = styled.li`
 const Title = styled.h1`
   font-size: 48px;
   color: ${(props) => props.theme.accentColor};
+  margin: auto;
+  grid-column: 1 / 5;
+  grid-row: 1;
 `;
 
 const Loader = styled.span`
   text-align: center;
   display: block;
+`;
+
+const ToggleButton = styled.button`
+  background-color: transparent;
+  border-radius: 0.6em;
+  border-color: ${(props) => props.theme.textColor};
+  cursor: pointer;
+  font-size: 0.5rem;
+  font-weight: 200;
+  line-height: 1;
+  padding: 10px;
+  text-align: center;
+  text-transform: uppercase;
+  color: ${(props) => props.theme.textColor};
+  margin: 25px;
 `;
 
 const Img = styled.img`
@@ -79,7 +97,7 @@ function Coins() {
       </Helmet>
       <Header>
         <Title>코인</Title>
-        <button onClick={toggleDarkAtom}>Toggle Mode</button>
+        <ToggleButton onClick={toggleDarkAtom}>Toggle Mode</ToggleButton>
       </Header>
       {isLoading ? (
         <Loader>Loading...</Loader>
